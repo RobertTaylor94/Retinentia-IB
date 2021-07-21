@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E18144FF26A8979C00999A44 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18144FE26A8979C00999A44 /* GameModel.swift */; };
 		E1DC4928269081D100F22E47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DC4927269081D100F22E47 /* AppDelegate.swift */; };
 		E1DC492A269081D100F22E47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DC4929269081D100F22E47 /* SceneDelegate.swift */; };
 		E1DC492C269081D100F22E47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DC492B269081D100F22E47 /* ViewController.swift */; };
@@ -17,7 +16,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E18144FE26A8979C00999A44 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		E1DC4924269081D100F22E47 /* Retinentia-IB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Retinentia-IB.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1DC4927269081D100F22E47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1DC4929269081D100F22E47 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,7 +59,6 @@
 				E1DC4927269081D100F22E47 /* AppDelegate.swift */,
 				E1DC4929269081D100F22E47 /* SceneDelegate.swift */,
 				E1DC492B269081D100F22E47 /* ViewController.swift */,
-				E18144FE26A8979C00999A44 /* GameModel.swift */,
 				E1DC492D269081D100F22E47 /* Main.storyboard */,
 				E1DC4930269081D400F22E47 /* Assets.xcassets */,
 				E1DC4932269081D400F22E47 /* LaunchScreen.storyboard */,
@@ -141,7 +138,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1DC492C269081D100F22E47 /* ViewController.swift in Sources */,
-				E18144FF26A8979C00999A44 /* GameModel.swift in Sources */,
 				E1DC4928269081D100F22E47 /* AppDelegate.swift in Sources */,
 				E1DC492A269081D100F22E47 /* SceneDelegate.swift in Sources */,
 			);

@@ -11,6 +11,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var scoreNumberLabel: UILabel!
+    @IBOutlet weak var highScoreLabel: UILabel!
     
     @IBOutlet weak var buttonOne: UIButton!
     @IBOutlet weak var buttonTwo: UIButton!
@@ -27,15 +28,21 @@ class ViewController: UIViewController {
     var userSequence: [Int] = []
     var sequence: [Int] = []
     var buttonSequence: [UIButton] = []
-    var secondsToDelay = 2.0
     var highScore = 0
+    let impact = UIImpactFeedbackGenerator()
+    let group = DispatchGroup()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         disableButtons()
         scoreNumberLabel.text = "\(score)"
+        let defaults = UserDefaults.standard
+        let highScoreText = defaults.integer(forKey: "HighScore")
+        highScoreLabel.text = "\(highScoreText)"
+        highScore = highScoreText
     }
 
+    
     @IBAction func startPressed(_ sender: UIButton) {
         enableButtons()
         updateSequence()
@@ -46,38 +53,65 @@ class ViewController: UIViewController {
     
     
     @IBAction func buttonOnePressed(_ sender: UIButton) {
+        sender.pulsate()
+//        sender.colorChange()
+        impact.impactOccurred()
         buttonPressed(buttonNum: 1)
     }
     
     @IBAction func buttonTwoPressed(_ sender: UIButton) {
+        sender.pulsate()
+//        sender.colorChange()
+        impact.impactOccurred()
         buttonPressed(buttonNum: 2)
     }
     
     @IBAction func buttonThreePressed(_ sender: UIButton) {
+        sender.pulsate()
+//        sender.colorChange()
+        impact.impactOccurred()
         buttonPressed(buttonNum: 3)
     }
     
     @IBAction func buttonFourPressed(_ sender: UIButton) {
+        sender.pulsate()
+//        sender.colorChange()
+        impact.impactOccurred()
         buttonPressed(buttonNum: 4)
     }
     
     @IBAction func buttonFivePressed(_ sender: UIButton) {
+        sender.pulsate()
+//        sender.colorChange()
+        impact.impactOccurred()
         buttonPressed(buttonNum: 5)
     }
     
     @IBAction func buttonSixPressed(_ sender: UIButton) {
+        sender.pulsate()
+//        sender.colorChange()
+        impact.impactOccurred()
         buttonPressed(buttonNum: 6)
     }
     
     @IBAction func buttonSevenPressed(_ sender: UIButton) {
+        sender.pulsate()
+//        sender.colorChange()
+        impact.impactOccurred()
         buttonPressed(buttonNum: 7)
     }
     
     @IBAction func buttonEightPressed(_ sender: UIButton) {
+        sender.pulsate()
+//        sender.colorChange()
+        impact.impactOccurred()
         buttonPressed(buttonNum: 8)
     }
     
     @IBAction func buttonNinePressed(_ sender: UIButton) {
+        sender.pulsate()
+//        sender.colorChange()
+        impact.impactOccurred()
         buttonPressed(buttonNum: 9)
     }
     
@@ -133,7 +167,11 @@ extension ViewController {
                 disableButtons()
                 startButton.isEnabled = true
                 print("Game Over")
-                highScore = score
+                if score > highScore {
+                    let defaults = UserDefaults.standard
+                    defaults.set(score, forKey: "HighScore")
+                    highScoreLabel.text = "\(score)"
+                }
                 score = 0
                 scoreNumberLabel.text = "\(score)"
                 userSequence = []
@@ -158,27 +196,52 @@ extension ViewController {
 // MARK: - Animation
 
 extension ViewController {
-    
     func animateButtons() {
+        disableButtons()
         for (index, button) in buttonSequence.enumerated() {
-            UIButton.animate(withDuration: 1, delay: TimeInterval(index)) {
-                button.backgroundColor = UIColor(red: 63/255, green: 255/255, blue: 0/255, alpha: 1.0)
-                button.backgroundColor = UIColor(red: 168/255, green: 61/255, blue: 164/255, alpha: 0.85)
-            }
+            group.enter()
+            UIButton.animate(
+                withDuration: 1,
+                delay: TimeInterval(index),
+                animations: {
+                    button.backgroundColor = UIColor(red: 63/255, green: 255/255, blue: 0/255, alpha: 1.0)
+                },
+                completion: { finished in
+                    button.backgroundColor = UIColor(red: 168/255, green: 61/255, blue: 164/255, alpha: 0.85)
+                    self.group.leave()
+                }
+            )
+        }
+        group.notify(queue: .main) {
+            self.enableButtons()
         }
     }
-    
 }
-    
-    
-//        let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
-//            for button in self.buttonSequence {
-//
-//                button.backgroundColor = UIColor(red: 63/255, green: 255/255, blue: 0/255, alpha: 1.0)
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                    button.backgroundColor = UIColor(red: 168/255, green: 61/255, blue: 164/255, alpha: 0.85)
-//                }
+
+// MARK: - UIButton Extension
+
+extension UIButton {
+    func pulsate() {
+    let pulse = CASpringAnimation(keyPath: "transform.scale")
+    pulse.duration = 0.3
+    pulse.fromValue = 0.98
+    pulse.toValue = 1.0
+    pulse.repeatCount = 1
+    pulse.initialVelocity = 0.5
+    pulse.damping = 1.0
+    layer.add(pulse, forKey: nil)
+    }
+//    func colorChange() {
+//        UIButton.animate(
+//            withDuration: 0.5,
+//            animations: {
+//                self.backgroundColor = UIColor(white: 1, alpha: 1)
+//        },
+//            completion: { finished in
+//                self.backgroundColor = UIColor(red: 168/255, green: 61/255, blue: 164/255, alpha: 0.85)
 //            }
-//        })
+//        )
 //    }
+}
+
 

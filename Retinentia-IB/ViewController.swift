@@ -7,6 +7,11 @@
 
 import UIKit
 
+func delay(_ delay:Double, closure:@escaping ()->()) {
+    let when = DispatchTime.now() + delay
+    DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
+}
+
 class ViewController: UIViewController {
     
     @IBOutlet weak var scoreLabel: UILabel!
@@ -32,7 +37,6 @@ class ViewController: UIViewController {
     let impact = UIImpactFeedbackGenerator()
     let group = DispatchGroup()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         disableButtons()
@@ -42,14 +46,14 @@ class ViewController: UIViewController {
         highScoreLabel.text = "\(highScoreText)"
         highScore = highScoreText
     }
-
     
     @IBAction func startPressed(_ sender: UIButton) {
         enableButtons()
         updateSequence()
         print(sequence)
         startButton.isEnabled = false
-        animateButtons()
+//        animateButtons()
+        start()
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
@@ -129,7 +133,7 @@ extension ViewController {
                 updateSequence()
                 userSequence = []
                 print(sequence)
-                animateButtons()
+                start()
             } else if userSequence != sequence {
                 disableButtons()
                 startButton.isEnabled = true
@@ -161,26 +165,25 @@ extension ViewController {
 // MARK: - Animation Sequence
 
 extension ViewController {
-    func animateButtons() {
+    func start() {
         disableButtons()
-        for (index, button) in buttonSequence.enumerated() {
-            group.enter()
-            UIButton.animate(
-                withDuration: 1,
-                delay: TimeInterval(index),
-                animations: {
-                    button.backgroundColor = UIColor(red: 63/255, green: 255/255, blue: 0/255, alpha: 1.0)
-                },
-                completion: { finished in
-                    button.backgroundColor = UIColor(red: 168/255, green: 61/255, blue: 164/255, alpha: 0.85)
-                    self.group.leave()
-                }
-            )
-        }
-        group.notify(queue: .main) {
-            self.enableButtons()
-        }
+        let btnseq = buttonSequence
+        self.animate(btnseq)
     }
+    func animate(_ seq:[UIButton]) {
+            if let b = seq.first {
+                UIView.animate(withDuration: 1, delay: 0, options: [], animations: {
+                    b.backgroundColor = UIColor(red: 63/255, green: 255/255, blue: 0/255, alpha: 1.0)
+                }) { _ in
+                    b.backgroundColor = UIColor(red: 168/255, green: 61/255, blue: 164/255, alpha: 0.85)
+                    delay(0.1) {
+                        self.animate(Array(seq.dropFirst()))
+                    }
+                }
+            } else {
+                enableButtons()
+            }
+        }
 }
 
 // MARK: - UIButton Extension

@@ -52,71 +52,39 @@ class ViewController: UIViewController {
         animateButtons()
     }
     
-    
-    @IBAction func buttonOnePressed(_ sender: UIButton) {
-        sender.pulsate()
-//        sender.colorChange()
-        impact.impactOccurred()
-        buttonPressed(buttonNum: 1)
+    @IBAction func buttonPressed(_ sender: UIButton) {
+        switch sender.tag {
+        case 1:
+            sender.pulsate()
+            buttonPressed(buttonNum: 1)
+        case 2:
+            sender.pulsate()
+            buttonPressed(buttonNum: 2)
+        case 3:
+            sender.pulsate()
+            buttonPressed(buttonNum: 3)
+        case 4:
+            sender.pulsate()
+            buttonPressed(buttonNum: 4)
+        case 5:
+            sender.pulsate()
+            buttonPressed(buttonNum: 5)
+        case 6:
+            sender.pulsate()
+            buttonPressed(buttonNum: 6)
+        case 7:
+            sender.pulsate()
+            buttonPressed(buttonNum: 7)
+        case 8:
+            sender.pulsate()
+            buttonPressed(buttonNum: 8)
+        case 9:
+            sender.pulsate()
+            buttonPressed(buttonNum: 9)
+        default:
+            print("error")
+        }
     }
-    
-    @IBAction func buttonTwoPressed(_ sender: UIButton) {
-        sender.pulsate()
-//        sender.colorChange()
-        impact.impactOccurred()
-        buttonPressed(buttonNum: 2)
-    }
-    
-    @IBAction func buttonThreePressed(_ sender: UIButton) {
-        sender.pulsate()
-//        sender.colorChange()
-        impact.impactOccurred()
-        buttonPressed(buttonNum: 3)
-    }
-    
-    @IBAction func buttonFourPressed(_ sender: UIButton) {
-        sender.pulsate()
-//        sender.colorChange()
-        impact.impactOccurred()
-        buttonPressed(buttonNum: 4)
-    }
-    
-    @IBAction func buttonFivePressed(_ sender: UIButton) {
-        sender.pulsate()
-//        sender.colorChange()
-        impact.impactOccurred()
-        buttonPressed(buttonNum: 5)
-    }
-    
-    @IBAction func buttonSixPressed(_ sender: UIButton) {
-        sender.pulsate()
-//        sender.colorChange()
-        impact.impactOccurred()
-        buttonPressed(buttonNum: 6)
-    }
-    
-    @IBAction func buttonSevenPressed(_ sender: UIButton) {
-        sender.pulsate()
-//        sender.colorChange()
-        impact.impactOccurred()
-        buttonPressed(buttonNum: 7)
-    }
-    
-    @IBAction func buttonEightPressed(_ sender: UIButton) {
-        sender.pulsate()
-//        sender.colorChange()
-        impact.impactOccurred()
-        buttonPressed(buttonNum: 8)
-    }
-    
-    @IBAction func buttonNinePressed(_ sender: UIButton) {
-        sender.pulsate()
-//        sender.colorChange()
-        impact.impactOccurred()
-        buttonPressed(buttonNum: 9)
-    }
-    
-
 }
 
 // MARK: - Button Group Function

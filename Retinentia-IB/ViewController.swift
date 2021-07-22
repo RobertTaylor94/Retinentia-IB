@@ -32,6 +32,7 @@ class ViewController: UIViewController {
     let impact = UIImpactFeedbackGenerator()
     let group = DispatchGroup()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         disableButtons()
@@ -150,9 +151,7 @@ extension ViewController {
 
 extension ViewController {
     func buttonPressed(buttonNum: Int) {
-        
         userSequence.append(buttonNum)
-        
         if userSequence.count < sequence.count {
             print(userSequence)
         } else if userSequence.count == sequence.count {
@@ -167,6 +166,9 @@ extension ViewController {
                 disableButtons()
                 startButton.isEnabled = true
                 print("Game Over")
+                let alert = UIAlertController(title: "Game Over", message: "Score: \(score)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in }))
+                self.present(alert, animated: true, completion: nil)
                 if score > highScore {
                     let defaults = UserDefaults.standard
                     defaults.set(score, forKey: "HighScore")
@@ -179,11 +181,7 @@ extension ViewController {
                 buttonSequence = []
             }
         }
-        
-        
-    
     }
-    
     func updateSequence() {
         let buttonArray = [buttonOne, buttonTwo, buttonThree, buttonFour, buttonFive, buttonSix, buttonSeven, buttonEight, buttonNine]
         let randomInt = Int.random(in: 1...9)
@@ -192,8 +190,7 @@ extension ViewController {
     }
 }
 
-
-// MARK: - Animation
+// MARK: - Animation Sequence
 
 extension ViewController {
     func animateButtons() {
@@ -231,17 +228,5 @@ extension UIButton {
     pulse.damping = 1.0
     layer.add(pulse, forKey: nil)
     }
-//    func colorChange() {
-//        UIButton.animate(
-//            withDuration: 0.5,
-//            animations: {
-//                self.backgroundColor = UIColor(white: 1, alpha: 1)
-//        },
-//            completion: { finished in
-//                self.backgroundColor = UIColor(red: 168/255, green: 61/255, blue: 164/255, alpha: 0.85)
-//            }
-//        )
-//    }
+
 }
-
-
